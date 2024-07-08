@@ -19,7 +19,7 @@ class JobPositionFactory extends Factory
     {
         return [
             //
-            'employer_id' => Employer::class,
+            'employer_id' => Employer::factory(),
             'title' => fake()->jobTitle,
             'salary' => fake()->randomElement(['$40000', '$50000', '$70000']),
             'location' => 'Remote',

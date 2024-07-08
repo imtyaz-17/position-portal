@@ -9,6 +9,15 @@ class JobPosition extends Model
 {
     use HasFactory;
 
+    public function tag(string $name)
+    {
+        $tag = Tag::firstOrCreate(['name' => $name]);
+        $this->tags()->attach($tag);
+    }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'job_tag');
+    }
     public function employer()
     {
         return $this->belongsTo(Employer::class);

@@ -10,3 +10,8 @@ it('belongs to an employer', function () {
     ]);
     expect($job->employer->is($employer))->toBeTrue();
 });
+it('can have tags', function () {
+    $job = JobPosition::factory()->create();
+    $job->tag('frontend');
+    expect($job->tags)->toHaveCount(1);
+});
