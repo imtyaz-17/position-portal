@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobPosition;
-use App\Http\Requests\StoreJobPositionRequest;
-use App\Http\Requests\UpdateJobPositionRequest;
-use App\Models\Tag;
+use Illuminate\Http\Request;
 
-class JobPositionController extends Controller
+class RegisterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +12,6 @@ class JobPositionController extends Controller
     public function index()
     {
         //
-        $jobs = JobPosition::all()->groupBy('featured');
-        return view('jobs.index', [
-            'featuredJobs' => $jobs[0],
-            'jobs' => $jobs[1],
-            'tags' => Tag::all(),
-        ]);
     }
 
     /**
@@ -29,12 +20,13 @@ class JobPositionController extends Controller
     public function create()
     {
         //
+        return view('auth.register');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreJobPositionRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -42,7 +34,7 @@ class JobPositionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(JobPosition $jobPosition)
+    public function show(string $id)
     {
         //
     }
@@ -50,7 +42,7 @@ class JobPositionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(JobPosition $jobPosition)
+    public function edit(string $id)
     {
         //
     }
@@ -58,7 +50,7 @@ class JobPositionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateJobPositionRequest $request, JobPosition $jobPosition)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -66,7 +58,7 @@ class JobPositionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JobPosition $jobPosition)
+    public function destroy(string $id)
     {
         //
     }
