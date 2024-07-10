@@ -6,7 +6,9 @@
     <div class="text-center">
         <h3
             class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-blue-700 transition-colors duration-200">
-            {{$job->title}}
+            <a href="{{ $job->job_url }}" target="_blank">
+                {{ $job->title }}
+            </a>
         </h3>
         <p class="font-medium text-gray-700 dark:text-gray-400">{{$job->job_type}} - {{$job->salary}}</p>
     </div>

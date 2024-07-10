@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobPosition;
-use App\Http\Requests\StoreJobPositionRequest;
-use App\Http\Requests\UpdateJobPositionRequest;
 use App\Models\Tag;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class JobPositionController extends Controller
 {
@@ -15,10 +17,10 @@ class JobPositionController extends Controller
     public function index()
     {
         //
-        $jobs = JobPosition::all()->groupBy('featured');
+        $jobs = JobPosition::latest()->get()->groupBy('featured');
         return view('jobs.index', [
-            'featuredJobs' => $jobs[0],
-            'jobs' => $jobs[1],
+            'jobs' => $jobs[0],
+            'featuredJobs' => $jobs[1],
             'tags' => Tag::all(),
         ]);
     }
@@ -28,15 +30,35 @@ class JobPositionController extends Controller
      */
     public function create()
     {
-        //
+        return view('jobs.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreJobPositionRequest $request)
+    public function store(Request $request)
     {
         //
+        $attributes = $request->validate([
+            'title' => 'required|string|max:255',
+            'salary' => 'required|numeric|min:0',
+            'location' => 'required|string|max:255',
+            'job_type' => ['required', Rule::in(['Part Time', 'Full Time'])],
+            'job_url' => 'required|active_url',
+            'tags' => 'nullable',
+        ]);
+
+        $attributes['featured'] = $request->has('featured');
+
+        $job = Auth::user()->employer->jobs()->create(Arr::except($attributes, 'tags'));
+
+        if ($attributes['tags'] ?? false) {
+            foreach (explode(',', $attributes['tags']) as $tag) {
+                $job->tag($tag);
+            }
+        }
+
+        return redirect('/');
     }
 
     /**
@@ -58,7 +80,7 @@ class JobPositionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateJobPositionRequest $request, JobPosition $jobPosition)
+    public function update(Request $request, JobPosition $jobPosition)
     {
         //
     }

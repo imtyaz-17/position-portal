@@ -8,6 +8,8 @@ use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [JobPositionController::class, 'index']);
+Route::get('/jobs/create', [JobPositionController::class, 'create'])->middleware('auth');
+Route::post('/jobs', [JobPositionController::class, 'store'])->middleware('auth');
 Route::get('/search', SearchController::class);
 Route::get('/tags/{tag:name}', TagController::class);
 
