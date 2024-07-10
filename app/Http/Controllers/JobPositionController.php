@@ -17,7 +17,8 @@ class JobPositionController extends Controller
     public function index()
     {
         //
-        $jobs = JobPosition::latest()->get()->groupBy('featured');
+        $jobs = JobPosition::latest()->with(['employer', 'tags'])->get()->groupBy('featured');
+
         return view('jobs.index', [
             'jobs' => $jobs[0],
             'featuredJobs' => $jobs[1],
