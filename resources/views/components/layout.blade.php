@@ -9,8 +9,8 @@
   @vite('resources/css/app.css','resources/js/app.js')
 </head>
 
-<body>
-  <div class="px-10 bg-gray-700">
+<body class="bg-gray-700 text-white pb-10">
+  <div class="px-10">
     <nav class="">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">

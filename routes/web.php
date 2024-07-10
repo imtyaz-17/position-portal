@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [JobPositionController::class, 'index']);
 
 Route::get('/register', [RegisterController::class, 'create']);
-Route::get('/register', [RegisterController::class, 'store']);
+Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/login', [SessionController::class, 'create']);
 Route::get('/login', [SessionController::class, 'store']);
 Route::get('/logout', [SessionController::class, 'destroy']);
